@@ -1,0 +1,31 @@
+{
+  "name": "react-data-fetch-manager",
+  "version": "1.0.0",
+  "description": "React package that provides a standard way of fetching data",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/TheMineWay/react-data-fetch-manager",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "TheMineWay",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "files": [
+    "dist",
+    "dist/**"
+  ],
+  "dependencies": {
+    "@types/node": "^20.4.4",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "axios": "^1.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "yup": "^1.3.2"
+  }
+}
