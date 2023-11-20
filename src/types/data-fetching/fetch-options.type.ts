@@ -4,7 +4,7 @@ import { Sort } from "../sorting";
 
 export interface FetchOptions<T extends Object = Object> {
     url: string;
-    body?: T;
+    body?: Object;
     method?: Method;
     params: Record<string, unknown>;
     options?: Omit<AxiosRequestConfig, 'url' | 'data' | 'method' | 'params'>,

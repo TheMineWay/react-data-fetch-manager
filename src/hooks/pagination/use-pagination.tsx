@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { UsePaginationOptionsType } from "../../types/pagination/use-pagination-options.type";
+import { UsePaginationOptions } from "../../types/pagination/use-pagination-options.type";
 
-export function usePagination({ initialPageSize, initialPage, total }: UsePaginationOptionsType) {
+export function usePagination({ initialPageSize, initialPage, total }: UsePaginationOptions) {
     
     const [pageSize, setPageSize] = useState(initialPageSize ?? 20);
     const [currentPage, setCurrentPageState] = useState(initialPage ?? 0);
