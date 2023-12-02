@@ -1,18 +1,22 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { FetchOptions } from "../../types/data-fetching/fetch-options.type";
+import { PaginatedResponse } from "../../types/data-fetching/paginated-response.type";
 
-type Response<T> = { rows: T[]; count: number };
+type Response<T> = PaginatedResponse<T>;
 
 export class DataFetchingService {
-
-  private requestFactory?: (options: FetchOptions<Object>) => Promise<FetchOptions<Object>>;
-  private constructor () {}
+  private requestFactory?: (
+    options: FetchOptions<Object>
+  ) => Promise<FetchOptions<Object>>;
+  private constructor() {}
 
   public static new() {
     return new DataFetchingService();
   }
 
-  public static fromFactory(factory: (options: FetchOptions<Object>) => Promise<FetchOptions<Object>>) {
+  public static fromFactory(
+    factory: (options: FetchOptions<Object>) => Promise<FetchOptions<Object>>
+  ) {
     const newInstance = this.new();
     newInstance.requestFactory = factory;
     return newInstance;
@@ -30,7 +34,10 @@ export class DataFetchingService {
   };
 
   private mountConfig = async <T extends Object>(options: FetchOptions<T>) => {
-    const { url, body, method, params, pagination, ..._options } = this.requestFactory ? (await this.requestFactory(options as unknown as FetchOptions<Object>)) : options;
+    const { url, body, method, params, pagination, ..._options } = this
+      .requestFactory
+      ? await this.requestFactory(options as unknown as FetchOptions<Object>)
+      : options;
 
     const query = params;
 
