@@ -1,5 +1,5 @@
 export interface UsePaginationOptions {
-    total: number;
-    initialPageSize?: number;
-    initialPage?: number;
+  total?: number;
+  initialPageSize?: number;
+  initialPage?: number;
 }
