@@ -11,7 +11,7 @@ export function usePagination({
   const [currentPage, setCurrentPageState] = useState(initialPage ?? 0);
 
   const offset = currentPage * pageSize;
-  const lastPage = total < pageSize ? 0 : Math.floor(total / pageSize) - 1;
+  const lastPage = total < pageSize ? 0 : Math.floor(total / pageSize);
 
   const setCurrentPage = (page: number) => {
     setCurrentPageState(correctPage(page));
