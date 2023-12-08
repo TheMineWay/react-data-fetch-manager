@@ -33,6 +33,7 @@ export default function ManagedFetchFilters<T extends object = object>({
     <div>
       {search({
         onSearch: (value) => {
+          console.log("Trigger search");
           startTransition(() => {
             setInternalFilters({ ...internalFilters, search: value });
             setFilters({ ...filters, search: value });

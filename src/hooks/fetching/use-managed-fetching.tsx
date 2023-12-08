@@ -20,6 +20,8 @@ export function useManagedFetching<T extends Object>({
   const [filters, setFilters] = useState<Filter>({});
   const sort = useSort<T>();
 
+  console.log({ filters });
+
   const useQueryInstance = useQuery({
     queryKey: [
       "react-data-fetch-manager",
