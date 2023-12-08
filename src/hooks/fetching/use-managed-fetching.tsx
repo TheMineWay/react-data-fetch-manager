@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { UseManagedFetchingOptions } from "../../types/data-fetching/use-managed-fetching-options.type";
 import { useFetchingService } from "../fetching-clients/use-fetching-service";
 import { usePagination } from "../pagination";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSort } from "../sorting";
 import { IUseManagedFetching } from "../../types/data-fetching/use-managed-fetching.interface";
 import { Filter } from "../../types/filters/filter.type";
@@ -19,8 +19,6 @@ export function useManagedFetching<T extends Object>({
 
   const [filters, setFilters] = useState<Filter>({});
   const sort = useSort<T>();
-
-  console.log({ filters });
 
   const useQueryInstance = useQuery({
     queryKey: [
@@ -45,10 +43,6 @@ export function useManagedFetching<T extends Object>({
       return response;
     },
   });
-
-  useEffect(() => {
-    useQueryInstance.refetch();
-  }, [useQueryInstance, currentPage, sort.sort]);
 
   return {
     data: useQueryInstance.data?.data?.rows ?? [],
