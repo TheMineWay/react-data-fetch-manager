@@ -25,7 +25,6 @@ export function useManagedFetching<T extends Object>({
       "react-data-fetch-manager",
       "managed-fetching",
       ...url.split("/"),
-      { pageSize, offset, total },
     ],
     queryFn: async () => {
       const fetchingService = getService();
