@@ -15,7 +15,7 @@ export default function ManagedFetchRenderer<T extends object>({
   return (
     <div style={{ display: "flex", gap: "4em" }}>
       <div style={{ width: "100%" }}>
-        <ManagedFetchFilters />
+        <ManagedFetchFilters managedFetch={managedFetch} />
       </div>
       {render && (
         <div style={{ width: "100%" }}>

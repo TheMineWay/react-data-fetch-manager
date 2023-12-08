@@ -5,6 +5,7 @@ import { usePagination } from "../pagination";
 import { useEffect, useState } from "react";
 import { useSort } from "../sorting";
 import { IUseManagedFetching } from "../../types/data-fetching/use-managed-fetching.interface";
+import { Filter } from "../../types/filters/filter.type";
 
 export function useManagedFetching<T extends Object>({
   fetchOptions: { url, ...fetchOptions },
@@ -16,6 +17,7 @@ export function useManagedFetching<T extends Object>({
   const pagination = usePagination(paginationOptions ?? { total });
   const { pageSize, offset, currentPage } = pagination;
 
+  const [filters, setFilters] = useState<Filter>({});
   const sort = useSort<T>();
 
   const useQueryInstance = useQuery({
@@ -23,7 +25,7 @@ export function useManagedFetching<T extends Object>({
       "react-data-fetch-manager",
       "managed-fetching",
       ...url.split("/"),
-      { pageSize, offset, total },
+      { pageSize, offset, total, filters },
     ],
     queryFn: async () => {
       const fetchingService = getService();
@@ -54,5 +56,7 @@ export function useManagedFetching<T extends Object>({
     sort,
     total,
     useQueryInstance,
+    filters,
+    setFilters,
   } satisfies IUseManagedFetching<T>;
 }

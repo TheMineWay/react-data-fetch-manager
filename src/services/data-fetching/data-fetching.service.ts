@@ -34,8 +34,16 @@ export class DataFetchingService {
   };
 
   private mountConfig = async <T extends Object>(options: FetchOptions<T>) => {
-    const { url, body, method, params, pagination, ..._options } = this
-      .requestFactory
+    const {
+      url,
+      body,
+      method,
+      params,
+      pagination,
+      filters,
+      sort,
+      ..._options
+    } = this.requestFactory
       ? await this.requestFactory(options as unknown as FetchOptions<Object>)
       : options;
 
@@ -46,10 +54,22 @@ export class DataFetchingService {
       query["offset"] = pagination.offset;
     }
 
+    if (filters) {
+      query["filters"] = filters;
+    }
+
+    if (sort) {
+      query["sort"] = sort;
+    }
+
     return {
       url,
       data: body,
       method,
+      params: {
+        ...params,
+        ...query,
+      },
       ..._options,
     };
   };

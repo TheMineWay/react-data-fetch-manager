@@ -1,6 +1,7 @@
 import { AxiosRequestConfig, Method } from "axios";
 import { Pagination } from "../pagination/pagination.type";
 import { Sort } from "../sorting";
+import { Filter } from "../filters/filter.type";
 
 export interface FetchOptions<T extends Object = Object> {
   url: string;
@@ -12,4 +13,5 @@ export interface FetchOptions<T extends Object = Object> {
   // Pagination
   pagination?: Pagination;
   sort?: Sort<T>;
+  filters?: Filter;
 }

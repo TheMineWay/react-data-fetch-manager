@@ -7,6 +7,7 @@ import { AxiosResponse } from "axios";
 import { PaginatedResponse } from "./paginated-response.type";
 import { IUsePagination } from "../pagination/use-pagination.interface";
 import { IUseSort } from "../sorting/use-sort.interface";
+import { Filter } from "../filters/filter.type";
 
 export interface IUseManagedFetching<T extends object> {
   data: T[];
@@ -22,4 +23,6 @@ export interface IUseManagedFetching<T extends object> {
     AxiosResponse<PaginatedResponse<T>, any>,
     Error
   >;
+  filters: Filter;
+  setFilters: (filters: Filter) => void;
 }

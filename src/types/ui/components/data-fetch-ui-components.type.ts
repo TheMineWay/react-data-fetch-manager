@@ -1,7 +1,17 @@
 type BaseProps<T> = {
   onValueChange?: (value: T) => void;
+  value?: T;
+  defaultValue?: T;
   name?: string;
   id?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  onBlur?: (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLButtonElement,
+      Element
+    >
+  ) => void;
 };
 type InputProps<T = string> = {
   placeholder?: string;
@@ -9,10 +19,10 @@ type InputProps<T = string> = {
 } & BaseProps<T>;
 
 type ButtonProps = {
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   text?: string;
   icon?: JSX.Element;
-} & Omit<BaseProps<unknown>, "onValueChange">;
+} & Omit<BaseProps<unknown>, "onValueChange" | "value" | "defaultValue">;
 
 type SelectProps<T extends string | number> = {
   options?: { value: T; label: string; key?: string }[];
@@ -20,7 +30,9 @@ type SelectProps<T extends string | number> = {
 
 export type DataFetchUIComponents = {
   // Input
-  search: (options: InputProps) => JSX.Element;
+  search: (
+    options: InputProps & { onSearch?: (value?: string) => void }
+  ) => JSX.Element;
   textInput: (options: InputProps) => JSX.Element;
   textAreaInput: (options: InputProps) => JSX.Element;
   numberInput: (options: InputProps<number>) => JSX.Element;
