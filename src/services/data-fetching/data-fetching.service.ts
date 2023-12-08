@@ -39,7 +39,7 @@ export class DataFetchingService {
       ? await this.requestFactory(options as unknown as FetchOptions<Object>)
       : options;
 
-    const query = params;
+    const query = params ?? {};
 
     if (pagination) {
       query["limit"] = pagination.limit;
