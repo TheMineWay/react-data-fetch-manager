@@ -5,44 +5,53 @@ import { usePagination } from "../pagination";
 import { useEffect, useState } from "react";
 import { useSort } from "../sorting";
 
-export function useManagedFetching<T extends Object>({ fetchOptions: { url, ...fetchOptions }, paginationOptions }: Omit<UseManagedFetchingOptions<T>, 'pagination'>) {
+export function useManagedFetching<T extends Object>({
+  fetchOptions: { url, ...fetchOptions },
+  paginationOptions,
+}: Omit<UseManagedFetchingOptions<T>, "pagination">) {
+  const [total, setTotal] = useState(0);
+  const { getService } = useFetchingService();
 
-    const [ total, setTotal ] = useState(0);
-    const { getService } = useFetchingService();
-    const { pageSize, offset, currentPage } = usePagination(paginationOptions ?? { total });
-    const sort = useSort<T>();
-    
-    const useQueryInstance = useQuery({
-      queryKey: [
-        "react-data-fetch-manager",
-        "managed-fetching",
-        ...url.split("/"),
-      ],
-      queryFn: async () => {
-        const fetchingService = getService();
+  const pagination = usePagination(paginationOptions ?? { total });
+  const { pageSize, offset, currentPage } = pagination;
 
-        const response = await fetchingService.fetch<T>({
-          url,
-          pagination: {
-            limit: pageSize,
-            offset: offset,
-          },
-          ...fetchOptions,
-        });
+  const sort = useSort<T>();
 
-        if (total !== response.data.count) setTotal(response.data.count);
+  const useQueryInstance = useQuery({
+    queryKey: [
+      "react-data-fetch-manager",
+      "managed-fetching",
+      ...url.split("/"),
+      { pageSize, offset, total },
+    ],
+    queryFn: async () => {
+      const fetchingService = getService();
 
-        return response;
-      },
-    });
+      const response = await fetchingService.fetch<T>({
+        url,
+        pagination: {
+          limit: pageSize,
+          offset: offset,
+        },
+        ...fetchOptions,
+      });
 
-    useEffect(() => {
-        useQueryInstance.refetch();
-    }, [useQueryInstance, currentPage, sort.sort]);
+      if (total !== response.data.count) setTotal(response.data.count);
 
-    return {
-      data: useQueryInstance.data?.data?.rows ?? [],
-      refetch: useQueryInstance.refetch,
-      useQueryInstance,
-    };
+      return response;
+    },
+  });
+
+  useEffect(() => {
+    useQueryInstance.refetch();
+  }, [useQueryInstance, currentPage, sort.sort]);
+
+  return {
+    data: useQueryInstance.data?.data?.rows ?? [],
+    refetch: useQueryInstance.refetch,
+    pagination,
+    sort,
+    total,
+    useQueryInstance,
+  };
 }
