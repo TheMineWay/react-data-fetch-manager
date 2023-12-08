@@ -4,6 +4,7 @@ import { useFetchingService } from "../fetching-clients/use-fetching-service";
 import { usePagination } from "../pagination";
 import { useEffect, useState } from "react";
 import { useSort } from "../sorting";
+import { IUseManagedFetching } from "../../types/data-fetching/use-managed-fetching.interface";
 
 export function useManagedFetching<T extends Object>({
   fetchOptions: { url, ...fetchOptions },
@@ -53,5 +54,5 @@ export function useManagedFetching<T extends Object>({
     sort,
     total,
     useQueryInstance,
-  };
+  } satisfies IUseManagedFetching<T>;
 }

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { UsePaginationOptions } from "../../types/pagination/use-pagination-options.type";
+import { Pagination } from "../../types";
+import { IUsePagination } from "../../types/pagination/use-pagination.interface";
 
 export function usePagination({
   initialPageSize,
@@ -38,5 +40,5 @@ export function usePagination({
     lastPage,
     total,
     setTotal,
-  };
+  } satisfies IUsePagination;
 }

@@ -3,6 +3,7 @@ import { DataFetchProviderProps } from "../types/providers/data-fetch-provider-p
 import { DataFetchContext } from "../contexts/data-fetch.context";
 import { DataFetchProvider } from "../types/providers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DEFAULT_UI_COMPONENTS } from "../constants/ui/default-components/default-ui-components.constant";
 
 let newQueryClient = new QueryClient();
 
@@ -11,10 +12,15 @@ export default function DataFetchProvider({
   services,
   defaultService,
   queryClient,
+  overrideUIComponents,
 }: DataFetchProviderProps) {
   const [context, setContext] = useState<DataFetchProvider>({
     services,
     defaultService: defaultService ?? Object.keys(services)[0],
+    uiComponents: {
+      ...DEFAULT_UI_COMPONENTS,
+      ...overrideUIComponents,
+    },
   });
 
   if (!context.defaultService)
