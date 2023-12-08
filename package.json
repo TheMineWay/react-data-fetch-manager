@@ -1,6 +1,6 @@
 {
   "name": "react-data-fetch-manager",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "React package that provides a standard way of fetching data",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
