@@ -13,15 +13,11 @@ export default function ManagedFetchRenderer<T extends object>({
   render,
 }: Props<T>) {
   return (
-    <div style={{ display: "flex", gap: "4em" }}>
-      <div style={{ width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+      <div>
         <ManagedFetchFilters managedFetch={managedFetch} />
       </div>
-      {render && (
-        <div style={{ width: "100%" }}>
-          {render({ rows: managedFetch.data })}
-        </div>
-      )}
+      {render && <div>{render({ rows: managedFetch.data })}</div>}
     </div>
   );
 }
