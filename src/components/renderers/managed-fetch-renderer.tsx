@@ -8,12 +8,13 @@ export type ManagedFetchRendererProps<T extends object> = {
   loading?: JSX.Element;
   render?: (options: { rows: T[] }) => JSX.Element;
   managedFetch: IUseManagedFetching<T>;
-} & Partial<Pick<DataFetchUIComponents, "layout">>;
+  overrideUI?: Partial<Pick<DataFetchUIComponents, "layout">>;
+};
 
 export default function ManagedFetchRenderer<T extends object>({
   managedFetch,
+  overrideUI,
   render,
-  layout: customLayout,
 }: ManagedFetchRendererProps<T>) {
   const {
     context: {
@@ -21,14 +22,14 @@ export default function ManagedFetchRenderer<T extends object>({
     },
   } = useDataFetchContext();
 
-  const layout = customLayout ?? providerLayout;
+  const layout = overrideUI?.layout ?? providerLayout;
 
   return (
     <>
       {layout({
         Filters: ManagedFetchFilters,
         managedFetch,
-        render,
+        Content: () => (render ? render({ rows: managedFetch.data }) : <></>),
       })}
     </>
   );

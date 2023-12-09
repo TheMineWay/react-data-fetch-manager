@@ -35,7 +35,8 @@ type SelectProps<T extends string | number> = {
 type LayoutOptions<T extends object> = {
   managedFetch: IUseManagedFetching<T>;
   Filters: typeof ManagedFetchFilters;
-} & Pick<ManagedFetchRendererProps<T>, "render">;
+  Content: () => JSX.Element;
+};
 
 export type DataFetchUIComponents = {
   // Input
