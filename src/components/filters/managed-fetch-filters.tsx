@@ -1,7 +1,7 @@
-import React, { useContext, useState, useTransition } from "react";
-import { DataFetchContext } from "../../contexts/data-fetch.context";
+import React, { useState, useTransition } from "react";
 import { Filter } from "../../types/filters/filter.type";
 import { IUseManagedFetching } from "../../types";
+import { useDataFetchContext } from "../../hooks/context/use-data-fetch-context";
 
 type Props<T extends object> = {
   managedFetch: IUseManagedFetching<T>;
@@ -10,9 +10,11 @@ type Props<T extends object> = {
 export default function ManagedFetchFilters<T extends object = object>({
   managedFetch,
 }: Props<T>) {
-  const context = useContext(DataFetchContext);
-
-  if (!context) throw new Error("No DataFetch context detected");
+  const {
+    context: {
+      uiComponents: { search },
+    },
+  } = useDataFetchContext();
 
   const { filters, setFilters } = managedFetch;
 
@@ -22,12 +24,6 @@ export default function ManagedFetchFilters<T extends object = object>({
   const apply = () => {
     setFilters(internalFilters);
   };
-
-  const {
-    context: {
-      uiComponents: { search },
-    },
-  } = context;
 
   return (
     <div>

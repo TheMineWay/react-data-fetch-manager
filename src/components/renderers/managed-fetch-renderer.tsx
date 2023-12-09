@@ -1,23 +1,35 @@
 import React from "react";
 import ManagedFetchFilters from "../filters/managed-fetch-filters";
 import { IUseManagedFetching } from "../../types";
+import { useDataFetchContext } from "../../hooks/context/use-data-fetch-context";
+import { DataFetchUIComponents } from "../../types/providers";
 
-type Props<T extends object> = {
+export type ManagedFetchRendererProps<T extends object> = {
   loading?: JSX.Element;
   render?: (options: { rows: T[] }) => JSX.Element;
   managedFetch: IUseManagedFetching<T>;
-};
+} & Partial<Pick<DataFetchUIComponents, "layout">>;
 
 export default function ManagedFetchRenderer<T extends object>({
   managedFetch,
   render,
-}: Props<T>) {
+  layout: customLayout,
+}: ManagedFetchRendererProps<T>) {
+  const {
+    context: {
+      uiComponents: { layout: providerLayout },
+    },
+  } = useDataFetchContext();
+
+  const layout = customLayout ?? providerLayout;
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
-      <div>
-        <ManagedFetchFilters managedFetch={managedFetch} />
-      </div>
-      {render && <div>{render({ rows: managedFetch.data })}</div>}
-    </div>
+    <>
+      {layout({
+        Filters: ManagedFetchFilters,
+        managedFetch,
+        render,
+      })}
+    </>
   );
 }

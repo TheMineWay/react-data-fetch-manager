@@ -1,4 +1,8 @@
-type BaseProps<T> = {
+import { ManagedFetchRendererProps } from "../../../components";
+import ManagedFetchFilters from "../../../components/filters/managed-fetch-filters";
+import { IUseManagedFetching } from "../../data-fetching";
+
+type InputBaseProps<T> = {
   onValueChange?: (value: T) => void;
   value?: T;
   defaultValue?: T;
@@ -16,17 +20,22 @@ type BaseProps<T> = {
 type InputProps<T = string> = {
   placeholder?: string;
   label?: string;
-} & BaseProps<T>;
+} & InputBaseProps<T>;
 
 type ButtonProps = {
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   text?: string;
   icon?: JSX.Element;
-} & Omit<BaseProps<unknown>, "onValueChange" | "value" | "defaultValue">;
+} & Omit<InputBaseProps<unknown>, "onValueChange" | "value" | "defaultValue">;
 
 type SelectProps<T extends string | number> = {
   options?: { value: T; label: string; key?: string }[];
 } & InputProps<T[]>;
+
+type LayoutOptions<T extends object> = {
+  managedFetch: IUseManagedFetching<T>;
+  Filters: typeof ManagedFetchFilters;
+} & Pick<ManagedFetchRendererProps<T>, "render">;
 
 export type DataFetchUIComponents = {
   // Input
@@ -46,4 +55,7 @@ export type DataFetchUIComponents = {
 
   // Button
   button: (options: ButtonProps) => JSX.Element;
+
+  // Layout
+  layout: <T extends object>(options: LayoutOptions<T>) => JSX.Element;
 };

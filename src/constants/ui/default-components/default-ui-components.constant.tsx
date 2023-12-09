@@ -229,4 +229,12 @@ export const DEFAULT_UI_COMPONENTS: DataFetchUIComponents = {
       </span>
     </button>
   ),
+  layout: ({ Filters, managedFetch, render }) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+      <div>
+        <Filters managedFetch={managedFetch} />
+      </div>
+      {render && <div>{render({ rows: managedFetch.data })}</div>}
+    </div>
+  ),
 };
