@@ -238,12 +238,15 @@ export const DEFAULT_UI_COMPONENTS: DataFetchUIComponents = {
       <button onClick={options.pagination.nextPage}>Next</button>
     </div>
   ),
-  layout: ({ Filters, managedFetch, Content }) => (
+  layout: ({ Filters, managedFetch, Content, Pagination }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
       <div>
         <Filters managedFetch={managedFetch} />
       </div>
       <Content />
+      <div>
+        <Pagination />
+      </div>
     </div>
   ),
 };

@@ -18,7 +18,7 @@ export default function ManagedFetchRenderer<T extends object>({
 }: ManagedFetchRendererProps<T>) {
   const {
     context: {
-      uiComponents: { layout: providerLayout },
+      uiComponents: { layout: providerLayout, pagination },
     },
   } = useDataFetchContext();
 
@@ -30,6 +30,7 @@ export default function ManagedFetchRenderer<T extends object>({
         Filters: ManagedFetchFilters,
         managedFetch,
         Content: () => (render ? render({ rows: managedFetch.data }) : <></>),
+        Pagination: () => pagination({ pagination: managedFetch.pagination }),
       })}
     </>
   );

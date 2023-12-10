@@ -36,6 +36,7 @@ type LayoutProps<T extends object> = {
   managedFetch: IUseManagedFetching<T>;
   Filters: typeof ManagedFetchFilters;
   Content: () => JSX.Element;
+  Pagination: () => JSX.Element;
 };
 
 type PaginationProps = {
