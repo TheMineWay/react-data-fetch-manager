@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { UsePaginationOptions } from "../../types/pagination/use-pagination-options.type";
-import { Pagination } from "../../types";
 import { IUsePagination } from "../../types/pagination/use-pagination.interface";
 
 export function usePagination({
@@ -30,6 +29,13 @@ export function usePagination({
     if (newPage !== currentPage) setCurrentPage(newPage);
   }, [pageSize, currentPage, total]);
 
+  const movePage = (pages: number) => {
+    setCurrentPage(currentPage + pages);
+  };
+
+  const nextPage = () => movePage(1);
+  const prevPage = () => movePage(-1);
+
   return {
     pageSize,
     setPageSize,
@@ -40,5 +46,8 @@ export function usePagination({
     lastPage,
     total,
     setTotal,
+    prevPage,
+    nextPage,
+    movePage,
   } satisfies IUsePagination;
 }

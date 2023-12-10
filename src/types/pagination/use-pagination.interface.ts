@@ -8,4 +8,8 @@ export interface IUsePagination {
   lastPage: number;
   total: number;
   setTotal: (total: number) => void;
+
+  nextPage: () => void;
+  prevPage: () => void;
+  movePage: (pages: number) => void;
 }

@@ -1,6 +1,6 @@
-import { ManagedFetchRendererProps } from "../../../components";
 import ManagedFetchFilters from "../../../components/filters/managed-fetch-filters";
 import { IUseManagedFetching } from "../../data-fetching";
+import { IUsePagination } from "../../pagination";
 
 type InputBaseProps<T> = {
   onValueChange?: (value: T) => void;
@@ -32,10 +32,14 @@ type SelectProps<T extends string | number> = {
   options?: { value: T; label: string; key?: string }[];
 } & InputProps<T[]>;
 
-type LayoutOptions<T extends object> = {
+type LayoutProps<T extends object> = {
   managedFetch: IUseManagedFetching<T>;
   Filters: typeof ManagedFetchFilters;
   Content: () => JSX.Element;
+};
+
+type PaginationProps = {
+  pagination: IUsePagination;
 };
 
 export type DataFetchUIComponents = {
@@ -57,6 +61,9 @@ export type DataFetchUIComponents = {
   // Button
   button: (options: ButtonProps) => JSX.Element;
 
+  // Pagination
+  pagination: (options: PaginationProps) => JSX.Element;
+
   // Layout
-  layout: <T extends object>(options: LayoutOptions<T>) => JSX.Element;
+  layout: <T extends object>(options: LayoutProps<T>) => JSX.Element;
 };

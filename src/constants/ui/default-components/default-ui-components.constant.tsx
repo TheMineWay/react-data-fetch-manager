@@ -229,6 +229,15 @@ export const DEFAULT_UI_COMPONENTS: DataFetchUIComponents = {
       </span>
     </button>
   ),
+  pagination: (options) => (
+    <div style={{ display: "flex", gap: "1em" }}>
+      <button onClick={options.pagination.prevPage}>Prev</button>
+      <p>
+        {options.pagination.currentPage + 1}/{options.pagination.lastPage + 1}
+      </p>
+      <button onClick={options.pagination.nextPage}>Next</button>
+    </div>
+  ),
   layout: ({ Filters, managedFetch, Content }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
       <div>
