@@ -37,6 +37,7 @@ type LayoutProps<T extends object> = {
   Filters: typeof ManagedFetchFilters;
   Content: () => JSX.Element;
   Pagination: () => JSX.Element;
+  Loading: () => JSX.Element;
 };
 
 type PaginationProps = {
@@ -67,4 +68,5 @@ export type DataFetchUIComponents = {
 
   // Layout
   layout: <T extends object>(options: LayoutProps<T>) => JSX.Element;
+  loading: () => JSX.Element;
 };
