@@ -34,6 +34,7 @@ export function useManagedFetching<T extends Object>({
           limit: pageSize,
           offset: offset,
         },
+        filters,
         ...fetchOptions,
       });
 
@@ -47,7 +48,7 @@ export function useManagedFetching<T extends Object>({
 
   useEffect(() => {
     useQueryInstance.refetch();
-  }, [currentPage]);
+  }, [currentPage, filters]);
 
   return {
     data: useQueryInstance.data?.data?.rows ?? [],
