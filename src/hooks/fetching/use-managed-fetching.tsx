@@ -12,6 +12,9 @@ export function useManagedFetching<T extends Object>({
   paginationOptions,
 }: Omit<UseManagedFetchingOptions<T>, "pagination">) {
   const [total, setTotal] = useState(0);
+
+  console.log({ updTotal: total });
+
   const { getService } = useFetchingService();
 
   const pagination = usePagination(paginationOptions ?? { total });
@@ -38,7 +41,13 @@ export function useManagedFetching<T extends Object>({
         ...fetchOptions,
       });
 
-      if (total !== response.data.count) setTotal(response.data.count);
+      console.log({ total });
+      console.log({ res: response.data });
+
+      if (total !== response.data.count) {
+        console.log("DEBUG, UPDATE COUNT");
+        setTotal(response.data.count);
+      }
 
       return response;
     },
