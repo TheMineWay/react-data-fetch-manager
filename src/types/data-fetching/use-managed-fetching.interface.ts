@@ -18,7 +18,6 @@ export interface IUseManagedFetching<T extends object> {
   >;
   pagination: IUsePagination;
   sort: IUseSort<T>;
-  total: number;
   useQueryInstance: UseQueryResult<
     AxiosResponse<PaginatedResponse<T>, any>,
     Error
