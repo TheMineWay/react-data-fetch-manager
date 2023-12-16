@@ -23,7 +23,6 @@ export class DataFetchingService {
   }
 
   fetch = async <T extends Object = Object>(options: FetchOptions<T>) => {
-    console.log({ prevOpts: options });
     return await axios.request<Response<T>>(await this.mountConfig<T>(options));
   };
 
@@ -35,7 +34,6 @@ export class DataFetchingService {
   };
 
   private mountConfig = async <T extends Object>(options: FetchOptions<T>) => {
-    console.log(`Has request factory? ${this.requestFactory}`);
     const {
       url,
       body,
@@ -48,8 +46,6 @@ export class DataFetchingService {
     } = this.requestFactory
       ? await this.requestFactory(options as unknown as FetchOptions<Object>)
       : options;
-
-    console.log({ options, processed: _options });
 
     const query = params ?? {};
 
@@ -66,19 +62,6 @@ export class DataFetchingService {
       query["sort"] = sort;
     }
 
-    console.log({
-      final: {
-        url,
-        data: body,
-        method,
-        params: {
-          ...params,
-          ...query,
-        },
-        ..._options,
-      },
-    });
-
     return {
       url,
       data: body,
@@ -87,7 +70,7 @@ export class DataFetchingService {
         ...params,
         ...query,
       },
-      ..._options,
+      ..._options.options,
     };
   };
 }
