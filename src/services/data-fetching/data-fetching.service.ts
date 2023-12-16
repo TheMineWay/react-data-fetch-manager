@@ -55,7 +55,7 @@ export class DataFetchingService {
     }
 
     if (filters) {
-      query["filters"] = filters;
+      query["filters"] = JSON.stringify(filters);
     }
 
     if (sort) {
