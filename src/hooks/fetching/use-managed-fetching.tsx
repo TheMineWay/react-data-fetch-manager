@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { useSort } from "../sorting";
 import { IUseManagedFetching } from "../../types/data-fetching/use-managed-fetching.interface";
 import { Filter } from "../../types/filters/filter.type";
+import { AxiosResponseHeaders } from "axios";
 
 export function useManagedFetching<T extends Object>({
   fetchOptions: { url, ...fetchOptions },
   paginationOptions,
+  schema,
 }: Omit<UseManagedFetchingOptions<T>, "pagination">) {
   const { getService } = useFetchingService();
 
@@ -42,7 +44,16 @@ export function useManagedFetching<T extends Object>({
         pagination.setTotal(response.data.count);
       }
 
-      return response;
+      const rows = response.data.rows.map((r) => schema.cast(r)) as T[];
+
+      return {
+        ...response,
+        headers: response.headers as AxiosResponseHeaders,
+        data: {
+          ...response.data,
+          rows,
+        },
+      };
     },
   });
 
